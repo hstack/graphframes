@@ -507,6 +507,7 @@ class GraphFrame private(
       val threshold = broadcastThreshold
       val hubs: Set[Any] = degrees.filter(col("degree") >= threshold).select(ID)
         .collect().map(_.get(0)).toSet
+      logger.info(s"Found HUBS: $hubs")
       val indexedSourceEdges = GraphFrame.skewedJoin(
         packedEdges,
         indexedVertices.select(col(ID).as(SRC), col(LONG_ID).as(LONG_SRC)),
