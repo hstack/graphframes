@@ -21,10 +21,12 @@ scalaVersion := scalaVer
 
 name := "graphframes"
 
+organization := "graphframes"
+
 spName := "graphframes/graphframes"
 
 // Don't forget to set the version
-version := s"0.6.0-adbe10-spark$sparkBranch"
+version := s"0.6.0-adbe11-spark$sparkBranch-s_${scalaVer.split("\\.").take(2).mkString(".")}-SNAPSHOT"
 
 // All Spark Packages need a license
 licenses := Seq("Apache-2.0" -> url("http://opensource.org/licenses/Apache-2.0"))
@@ -78,3 +80,20 @@ concurrentRestrictions in Global := Seq(
 autoAPIMappings := true
 
 coverageHighlighting := false
+
+publishMavenStyle := true
+
+crossPaths := false
+
+credentials += Credentials(
+  "Sonatype Nexus Repository Manager", "bucasit-build.corp.adobe.com",
+  "deployment", "insfarsit"
+)
+
+publishTo := {
+  val nexus = "http://bucasit-build.corp.adobe.com/nexus/content/repositories"
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some("Sonatype Nexus Repository Manager" at s"${nexus}/snapshots")
+  else
+    Some("Sonatype Nexus Repository Manager" at s"${nexus}/releases")
+}
