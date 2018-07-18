@@ -27,7 +27,7 @@ organization := "graphframes"
 spName := "graphframes/graphframes"
 
 // Don't forget to set the version
-version := s"0.6.0-adbe21-spark$sparkBranch-s_${scalaVer.split("\\.").take(2).mkString(".")}"
+version := s"0.6.0-adbe30-spark$sparkBranch-s_${scalaVer.split("\\.").take(2).mkString(".")}"
 
 // All Spark Packages need a license
 licenses := Seq("Apache-2.0" -> url("http://opensource.org/licenses/Apache-2.0"))
