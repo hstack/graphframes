@@ -505,8 +505,7 @@ class GraphFrame private(
         col(ATTR))
     } else {
       val threshold = broadcastThreshold
-      val hubs: Set[Any] = degrees.filter(col("degree") >= threshold).select(ID)
-        .collect().map(_.get(0)).toSet
+      val hubs: Set[Any] = Set() // don't detect hubs detection, expensive and not in our dataset
       logger.info(s"Found HUBS: $hubs")
       val indexedSourceEdges = GraphFrame.skewedJoin(
         packedEdges,

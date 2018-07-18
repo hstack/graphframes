@@ -248,11 +248,12 @@ object ConnectedComponents extends Logging {
       broadcastThreshold: Int,
       logPrefix: String): DataFrame = {
     import edges.sqlContext.implicits._
-    val hubs = minNbrs.filter(col(CNT) > broadcastThreshold)
+    val hubs = minNbrs.filter(col(CNT) > broadcastThreshold) // do we need this?
       .select(SRC)
       .as[Long]
       .collect()
       .toSet
+    logger.info(s"Found # HUBS: ${hubs.size}")
     GraphFrame.skewedJoin(edges, minNbrs, SRC, hubs, logPrefix)
   }
 
