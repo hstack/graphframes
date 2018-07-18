@@ -476,13 +476,13 @@ class GraphFrame private(
       indexedVertices.select(
         col(ATTR + "." + ID).cast("long").as(LONG_ID), col(ATTR + "." + ID).as(ID), col(ATTR))
     } else {
-      val repartitionedVertices = vertices.repartition(vertices.rdd.getNumPartitions, col(ID))
-      val withLongIds = repartitionedVertices.select(ID)
+      val withLongIds = vertices.select(ID)
+        .repartition(col(ID))
         .distinct()
         .sortWithinPartitions(ID)
         .withColumn(LONG_ID, monotonically_increasing_id())
         .persist(_storageLevel)
-      repartitionedVertices.select(col(ID), nestAsCol(repartitionedVertices, ATTR))
+      vertices.select(col(ID), nestAsCol(vertices, ATTR))
         .join(withLongIds, ID)
         .select(LONG_ID, ID, ATTR)
     }
