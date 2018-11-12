@@ -28,7 +28,7 @@ organization := "graphframes"
 spName := "graphframes/graphframes"
 
 // Don't forget to set the version
-version := s"0.6.0-adbe40-spark$sparkBranch-s_${scalaVer.split("\\.").take(2).mkString(".")}"
+version := s"0.6.0-adbe42-spark$sparkBranch-s_${scalaVer.split("\\.").take(2).mkString(".")}"
 
 // All Spark Packages need a license
 licenses := Seq("Apache-2.0" -> url("http://opensource.org/licenses/Apache-2.0"))
@@ -83,12 +83,12 @@ publishMavenStyle := true
 crossPaths := false
 
 credentials += Credentials(
-  "Sonatype Nexus Repository Manager", "bucasit-build.corp.adobe.com",
-  "deployment", "insfarsit"
+  "Sonatype Nexus Repository Manager", "bucasit-build",
+  "p", "p"
 )
 
 publishTo := {
-  val nexus = "http://bucasit-build.corp.adobe.com/nexus/content/repositories"
+  val nexus = "http://bucasit-build/nexus/content/repositories"
   if (version.value.trim.endsWith("SNAPSHOT"))
     Some("Sonatype Nexus Repository Manager" at s"${nexus}/snapshots")
   else
