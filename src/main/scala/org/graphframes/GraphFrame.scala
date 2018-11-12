@@ -506,7 +506,7 @@ class GraphFrame private(
     } else {
       val threshold = broadcastThreshold
       val hubs: Set[Any] = Set() // don't detect hubs detection, expensive and not in our dataset
-      logger.info(s"Found HUBS: $hubs")
+      logInfo(s"Found HUBS: $hubs")
       val indexedSourceEdges = GraphFrame.skewedJoin(
         packedEdges,
         indexedVertices.select(col(ID).as(SRC), col(LONG_ID).as(LONG_SRC)),
@@ -558,7 +558,7 @@ object GraphFrame extends Serializable with Logging {
       // No skew.  Do regular join.
       a.join(b, joinCol)
     } else {
-      logger.debug(s"$logPrefix Skewed join with ${hubs.size} high-degree keys.")
+      logDebug(s"$logPrefix Skewed join with ${hubs.size} high-degree keys.")
       val isHub = udf { id: T =>
         hubs.contains(id)
       }
